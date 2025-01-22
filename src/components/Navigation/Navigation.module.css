@@ -1,0 +1,38 @@
+.container {
+    background-color: blue;
+    height: 50px;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+}
+
+.navigation {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    padding: 0 82px;
+}
+
+.home {
+    color: rgb(151, 220, 245);
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 500;
+    transition: color 0.5s;
+}
+
+.home:hover {
+    color: rgb(12, 241, 20);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.active {
+    color: rgb(212, 255, 0);
+    text-decoration: underline;
+    font-size: 24px;
+    font-weight: 700;
+}

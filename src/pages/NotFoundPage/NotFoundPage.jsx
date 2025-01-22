@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import css from "./NoteFoundPage.module.css";
 
-const NotFoundPage = () => (
-    <div>
-        <h1>404 - Page Not Found</h1>
-        <Link to="/">Go to Home Page</Link>
+const NoteFoundPage = () => {
+  return (
+    <div className={css.container}>
+      <p className={css.text}>Note not found</p>
     </div>
-);
-
-export default NotFoundPage;
+  );
+};
+export default NoteFoundPage;
