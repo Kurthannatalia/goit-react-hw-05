@@ -2,7 +2,7 @@ import MovieList from "../../components/MovieList/MovieList";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import NextPage from "../../components/NextPage/NextPage";
 import { useEffect, useState } from "react";
-import fetchMovie from "../../components/fetchMovie/fetchMovie";
+import { fetchMovie } from "../../components/fetchMovie/fetchMovie";
 import { useSearchParams } from "react-router-dom";
 import Error from "../../components/Error/Error";
 

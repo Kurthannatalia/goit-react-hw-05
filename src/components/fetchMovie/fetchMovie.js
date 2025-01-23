@@ -1,18 +1,19 @@
 import axios from "axios";
 
-export const TOKEN_KEY =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NzUzODU3MzJiNzZjZTc1MjY4YmFjN2U5YTYyYjhhNCIsInN1YiI6IjY2NDY0OWRhZTY4YjdjNjhjYjc4MzVkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.X3Q9FdQn4-EWxq6InoWwB8xEmTXeKCjGfD3BgN6qMXo";
+export const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+export const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 axios.defaults.baseURL = "https://api.themoviedb.org";
 
-export default async function fetchMovie(searchQuery, page) {
+export async function fetchMovie(searchQuery, page) {
   const data = await axios.get(`/3/search/movie`, {
     params: {
       query: searchQuery,
       page: page,
+      api_key: TMDB_API_KEY,
     },
     headers: {
-      Authorization: `Bearer ${TOKEN_KEY}`,
+      Authorization: `Bearer ${TMDB_TOKEN}`,
     },
   });
   return data.data;

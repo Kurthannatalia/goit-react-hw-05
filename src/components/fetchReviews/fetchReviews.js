@@ -1,14 +1,24 @@
 import axios from "axios";
-import { TOKEN_KEY } from "../fetchMovie/fetchMovie";
+import dotenv from "dotenv";
 
-export default async function fetchReviews(movie_id) {
-  const data = await axios.get(
-    `https://api.themoviedb.org/3/movie/${movie_id}/reviews`,
-    {
+dotenv.config();
+
+const TMDB_TOKEN = process.env.TMDB_TOKEN;
+
+if (!TMDB_TOKEN) {
+  throw new Error("Missing TMDB_TOKEN in environment variables");
+}
+
+export async function fetchReviews(movieId) {
+  try {
+    const data = await axios.get(`/3/movie/${movieId}/reviews`, {
       headers: {
-        Authorization: `Bearer ${TOKEN_KEY}`,
+        Authorization: `Bearer ${TMDB_TOKEN}`,
       },
-    }
-  );
-  return data;
+    });
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching reviews:", error.message);
+    throw error;
+  }
 }
