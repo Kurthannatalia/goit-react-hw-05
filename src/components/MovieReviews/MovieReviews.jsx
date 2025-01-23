@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import fetchReviews from "../fetchReviews/fetchReviews";
 import css from "./MovieReviews.module.css";
-import Error from "../Error//Error";
+import Error from "../Error/Error";
 
 const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
