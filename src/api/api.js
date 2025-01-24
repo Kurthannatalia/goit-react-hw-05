@@ -5,6 +5,8 @@ dotenv.config();
 
 const TMDB_API_KEY = process.env.VITE_TMDB_API_KEY;
 
+console.log("TMDB_API_KEY on server:", TMDB_API_KEY);
+
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
 });
@@ -17,7 +19,7 @@ const getTrendingMovies = async () => {
         api_key: TMDB_API_KEY,
       },
     });
-    console.log(response.data);
+    console.log("Trending movies data:", response.data);
   } catch (error) {
     console.log("Error fetching data:", error);
   }
