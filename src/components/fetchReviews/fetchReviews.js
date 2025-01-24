@@ -1,23 +1,14 @@
 import axios from "axios";
+import { TOKEN_KEY } from "../fetchMovie/fetchMovie";
 
-const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
-
-if (!TMDB_TOKEN) {
-  throw new Error("Missing TMDB_TOKEN in environment variables");
-}
-
-export async function fetchReviews(movieId) {
-  try {
-    const { data } = await axios.get(`/3/movie/${movieId}/reviews`, {
+export default async function fetchReviews(movie_id) {
+  const data = await axios.get(
+    `https://api.themoviedb.org/3/movie/${movie_id}/reviews`,
+    {
       headers: {
-        Authorization: `Bearer ${TMDB_TOKEN}`,
+        Authorization: `Bearer ${TOKEN_KEY}`,
       },
-    });
-    return data;
-  } catch (error) {
-    console.error("Error fetching reviews:", error.message);
-    throw error;
-  }
+    }
+  );
+  return data;
 }
-
-

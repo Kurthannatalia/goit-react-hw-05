@@ -1,40 +1,19 @@
 import axios from "axios";
 
-export const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
-export const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+export const TOKEN_KEY =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MmI2NDA1N2FlY2Q5MWY4NDdhN2NhNjg1ZDI3N2M2OCIsIm5iZiI6MTczNzY1NDc0OC4xMDMwMDAyLCJzdWIiOiI2NzkyODFkY2QwOGUyZDMyYzIyOTQ3MGQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.6fOl5Yq1a296IbCRUVio5h83y4y-NSMUOqgZ0zhw1iI";
 
 axios.defaults.baseURL = "https://api.themoviedb.org";
 
-export async function fetchMovie(searchQuery, page) {
-  try {
-    
-    console.log("TMDB_TOKEN:", TMDB_TOKEN);  
-    console.log("TMDB_API_KEY:", TMDB_API_KEY);  
-
-    
-    const requestParams = {
+export default async function fetchMovie(searchQuery, page) {
+  const data = await axios.get(`/3/search/movie`, {
+    params: {
       query: searchQuery,
       page: page,
-      api_key: TMDB_API_KEY,
-    };
-    console.log("Request params:", requestParams);
-
-    
-    const data = await axios.get(`/3/search/movie`, {
-      params: requestParams,
-      headers: {
-        Authorization: `Bearer ${TMDB_TOKEN}`,
-      },
-    });
-
-  
-    console.log("Fetched movie data:", data);
-
-    return data.data;
-
-  } catch (error) {
-   
-    console.error("Error fetching movie data:", error.response || error);
-    throw error;
-  }
+    },
+    headers: {
+      Authorization: `Bearer ${TOKEN_KEY}`,
+    },
+  });
+  return data.data;
 }
