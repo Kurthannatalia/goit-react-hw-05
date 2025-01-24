@@ -3,13 +3,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const TMDB_TOKEN = process.env.TMDB_TOKEN;
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_TOKEN = process.env.VITE_TMDB_TOKEN;
+const TMDB_API_KEY = process.env.VITE_TMDB_API_KEY;
 
 const api = axios.create({
   baseURL: "https://api.themoviedb.org",
   headers: {
-    Authorization: `Bearer ${TMDB_TOKEN}`, // Токен для доступу
+    Authorization: `Bearer ${TMDB_TOKEN}`,
   },
 });
 
