@@ -1,9 +1,9 @@
-import { lazy } from "react";
-
-const MovieList = lazy(() => import("../../components/MovieList/MovieList"));
-import { useState, useEffect } from "react";
+import { lazy, useState, useEffect } from "react";
 import fetchTrendingMovie from "../../components/fetchTrendingMovie/fetchTrendingMovie";
 import Error from "../../components/Error/Error";
+
+const MovieList = lazy(() => import("../../components/MovieList/MovieList"));
+
 const HomePage = ({ onLoad }) => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(false);
@@ -11,7 +11,9 @@ const HomePage = ({ onLoad }) => {
   useEffect(() => {
     const loadTrendingMovie = async () => {
       try {
-        onLoad(true);
+        if (typeof onLoad === "function") {
+          onLoad(true); 
+        }
 
         const initMovie = await fetchTrendingMovie();
         setError(false);
@@ -19,11 +21,15 @@ const HomePage = ({ onLoad }) => {
       } catch (error) {
         setError(true);
       } finally {
-        onLoad(false);
+        if (typeof onLoad === "function") {
+          onLoad(false);
+        }
       }
     };
+
     loadTrendingMovie();
-  }, [onLoad, setMovies, error]);
+  }, [onLoad]);
+
   return (
     <div>
       {error && <Error />}
@@ -31,4 +37,5 @@ const HomePage = ({ onLoad }) => {
     </div>
   );
 };
+
 export default HomePage;

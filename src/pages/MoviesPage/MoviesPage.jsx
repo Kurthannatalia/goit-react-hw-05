@@ -15,18 +15,16 @@ const MoviesPage = ({ onLoad }) => {
 
   useEffect(() => {
     const searchTerm = searchParams.get("query");
-    const page = parseInt(searchParams.get("page")) || 1;
+    const pageParam = parseInt(searchParams.get("page")) || 1;
+
     if (searchTerm) {
-      setSearchTerm(searchTerm, page);
+      setSearchTerm(searchTerm);
+      setPage(pageParam);
       const fetchInitialMovies = async () => {
         try {
           setError(false);
-          setPage(1);
-          setSearchParams({ query: searchTerm, page: 1 });
-
           onLoad(true);
-          const data = await fetchMovie(searchTerm, page);
-
+          const data = await fetchMovie(searchTerm, pageParam);
           setFilmSearch(data.results);
         } catch (error) {
           setError(true);
@@ -36,23 +34,19 @@ const MoviesPage = ({ onLoad }) => {
       };
       fetchInitialMovies();
     }
-  }, [searchParams, onLoad, page, setSearchParams, searchTerm]);
+  }, [searchParams, onLoad]);
 
-  const handleMovie = async (searchTerm) => {
+  const handleMovie = (searchTerm) => {
     setPage(1);
     setSearchTerm(searchTerm);
     setSearchParams({ query: searchTerm, page: 1 });
   };
 
   const handleNextPage = async () => {
-    const pageParam = searchParams.get("page");
-    setPage(pageParam);
+    const nextPage = page + 1;
     try {
       setError(false);
-
       onLoad(true);
-      const nextPage = page + 1;
-
       const nextPageData = await fetchMovie(searchTerm, nextPage);
       setPage(nextPage);
       setFilmSearch((prevPage) => [...prevPage, ...nextPageData.results]);
@@ -69,8 +63,9 @@ const MoviesPage = ({ onLoad }) => {
       {error && <Error />}
       <SearchForm onSearch={handleMovie} />
       {filmSearch.length > 0 && <MovieList movies={filmSearch} />}
-      {filmSearch.length > 0 && <NextPage onChang={handleNextPage} />}
+      {filmSearch.length > 0 && <NextPage onChange={handleNextPage} />}
     </div>
   );
 };
+
 export default MoviesPage;
